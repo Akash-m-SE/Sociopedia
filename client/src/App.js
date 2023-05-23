@@ -1,12 +1,13 @@
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import HomePage from "scenes/homePage";
-import LoginPage from "scenes/loginPage";
-import ProfilePage from "scenes/profilePage";
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
-import { themeSettings } from "./theme";
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
+import HomePage from 'scenes/homePage';
+import LoginPage from 'scenes/loginPage';
+import ProfilePage from 'scenes/profilePage';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+import { themeSettings } from './theme';
+import UpdatePage from 'scenes/updatePage';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -25,8 +26,12 @@ function App() {
               element={isAuth ? <HomePage /> : <Navigate to="/" />}
             />
             <Route
-              path="/profile/:userid"
+              path="/profile/:userId"
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/profile/update/:userId"
+              element={isAuth ? <UpdatePage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

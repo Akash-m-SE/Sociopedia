@@ -1,10 +1,10 @@
-import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { setFriends } from "state";
-import FlexBetween from "./FlexBetween";
-import UserImage from "./UserImage";
-import { useNavigate } from "react-router-dom";
+import { PersonAddOutlined, PersonRemoveOutlined } from '@mui/icons-material';
+import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFriends } from 'state';
+import FlexBetween from './FlexBetween';
+import UserImage from './UserImage';
+import { useNavigate } from 'react-router-dom';
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const isFriend = Boolean(
     Array.isArray(friends)
       ? friends.find((friend) => friend._id === friendId)
-      : console.log("i am from friend.jsx")
+      : console.log('i am from friend.jsx')
   );
 
   //   method to make an api call to the backend of whether we can have friend or not
@@ -31,10 +31,10 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     const response = await fetch(
       `http://localhost:3001/users/${_id}/${friendId}`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
@@ -57,9 +57,9 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
             variant="h5"
             fontWeight="500"
             sx={{
-              "&:hover": {
+              '&:hover': {
                 color: palette.primary.light,
-                cursor: "pointer",
+                cursor: 'pointer',
               },
             }}
           >
@@ -70,16 +70,18 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      <IconButton
-        onClick={() => patchFriend()}
-        sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
-      >
-        {_id != friendId && isFriend ? (
-          <PersonRemoveOutlined sx={{ color: primaryDark }} />
-        ) : (
-          <PersonAddOutlined sx={{ color: primaryDark }} />
-        )}
-      </IconButton>
+      {_id !== friendId && (
+        <IconButton
+          onClick={() => patchFriend()}
+          sx={{ backgroundColor: primaryLight, p: '0.6rem' }}
+        >
+          {isFriend ? (
+            <PersonRemoveOutlined sx={{ color: primaryDark }} />
+          ) : (
+            <PersonAddOutlined sx={{ color: primaryDark }} />
+          )}
+        </IconButton>
+      )}
     </FlexBetween>
   );
 };

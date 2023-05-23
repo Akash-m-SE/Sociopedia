@@ -1,5 +1,5 @@
-import Post from "../models/Post.js";
-import User from "../models/User.js";
+import Post from '../models/Post.js';
+import User from '../models/User.js';
 
 // CREATE
 export const createPost = async (req, res) => {
@@ -27,10 +27,22 @@ export const createPost = async (req, res) => {
   }
 };
 
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findById(id);
+  if (post) {
+    await Post.findByIdAndDelete(id);
+    const response = await Post.find({});
+    res.status(200).json(response);
+  } else {
+    res.status(404).json({ message: 'Post not found' });
+  }
+};
+
 // READ
 export const getFeedPosts = async (req, res) => {
   try {
-    const post = await Post.find();
+    const post = await Post.find({}).sort({ createdAt: -1 });
     res.status(200).json(post);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -72,6 +84,27 @@ export const likePost = async (req, res) => {
 
     res.status(200).json(updatedPost);
   } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const addComment = async (req, res) => {
+  const { id } = req.params;
+  const { userId, username, comment } = req.body;
+  const post = await Post.findById(id);
+
+  if (post) {
+    const commentCreated = {
+      user: userId,
+      name: username,
+      comment: comment,
+    };
+    post.comments.push(commentCreated);
+
+    post.numOfComments = post.comments.length;
+    await post.save();
+    res.status(200).json(post);
+  } else {
     res.status(404).json({ message: error.message });
   }
 };

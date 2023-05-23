@@ -1,4 +1,18 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+
+const NotificationSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  notification: {
+    type: String,
+  },
+  notificationType: {
+    type: String,
+    enum: ['Birthday', 'Comment', 'Post'],
+  },
+});
 
 const UserSchema = new mongoose.Schema(
   {
@@ -23,11 +37,11 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      min: 5,
+      //min: 5,
     },
     picturePath: {
       type: String,
-      default: "",
+      default: '',
     },
     friends: {
       type: Array,
@@ -35,12 +49,10 @@ const UserSchema = new mongoose.Schema(
     },
     location: String,
     occupation: String,
-    viewedProfile: Number,
-    impressions: Number,
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 export default User;

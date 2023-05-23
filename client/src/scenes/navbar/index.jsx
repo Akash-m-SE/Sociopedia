@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Box,
   IconButton,
@@ -9,7 +9,7 @@ import {
   FormControl,
   useTheme,
   useMediaQuery,
-} from "@mui/material";
+} from '@mui/material';
 import {
   Search,
   Message,
@@ -19,19 +19,21 @@ import {
   Help,
   Menu,
   Close,
-} from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { setMode, setLogout } from "state";
-import { useNavigate } from "react-router-dom";
-import FlexBetween from "components/FlexBetween";
+} from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMode, setLogout } from 'state';
+import { useNavigate } from 'react-router-dom';
+import FlexBetween from 'components/FlexBetween';
+import SearchBox from 'components/Search';
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user); //getting the user information
-  const isNonMobileScreens = useMediaQuery("(mid-width: 1000px)");
-
+  const isNonMobileScreens = useMediaQuery('(min-width: 1000px)');
+  const id = useSelector((state) => state.user._id);
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
@@ -41,6 +43,10 @@ const Navbar = () => {
 
   const fullName = `${user.firstName} ${user.lastName}`;
 
+  const handleEdit = async () => {
+    navigate(`/profile/update/${id}`);
+  };
+
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.75rem">
@@ -48,18 +54,18 @@ const Navbar = () => {
           fontWeight="bold"
           fontSize="clamp(1rem, 2rem, 2.25rem)"
           color="primary"
-          onClick={() => navigate("/home")}
+          onClick={() => navigate('/home')}
           sx={{
-            "&:hover": {
+            '&:hover': {
               color: primaryLight,
-              cursor: "pointer",
+              cursor: 'pointer',
             },
           }}
         >
           Sociopedia
         </Typography>
         {isNonMobileScreens && (
-          <FlexBetween
+          /* <FlexBetween
             backgroundColor={neutralLight}
             borderRadius="9px"
             gap="3rem"
@@ -69,7 +75,8 @@ const Navbar = () => {
             <IconButton>
               <Search />
             </IconButton>
-          </FlexBetween>
+          </FlexBetween> */
+          <SearchBox />
         )}
       </FlexBetween>
 
@@ -78,29 +85,31 @@ const Navbar = () => {
         <FlexBetween gap="2rem">
           {/* the button to swap between light and dark modes using redux*/}
           <IconButton onClick={() => dispatch(setMode())}>
-            {theme.palette.mode === "dark" ? (
-              <DarkMode sx={{ fontSize: "25px" }} />
+            {theme.palette.mode === 'dark' ? (
+              <DarkMode sx={{ fontSize: '25px' }} />
             ) : (
-              <LightMode sx={{ color: dark, fontSize: "25px" }} />
+              <LightMode sx={{ color: dark, fontSize: '25px' }} />
             )}
           </IconButton>
           {/* the dropdown on the top right of navbar */}
-          <Message sx={{ fontSize: "25px" }} />
-          <Notifications sx={{ fontSize: "25px" }} />
-          <Help sx={{ fontSize: "25px" }} />
+          <Message sx={{ fontSize: '25px' }} />
+          <Notifications sx={{ fontSize: '25px' }} />
+          <IconButton onClick={handleEdit}>
+            <EditIcon sx={{ fontSize: '25px' }} />
+          </IconButton>
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
               sx={{
                 backgroundColor: neutralLight,
-                width: "150px",
-                borderRadius: "0.25rem",
-                p: "0.25rem 1rem",
-                "& .MuiSvgIcon-root": {
-                  pr: "0.25rem",
-                  width: "3rem",
+                width: '150px',
+                borderRadius: '0.25rem',
+                p: '0.25rem 1rem',
+                '& .MuiSvgIcon-root': {
+                  pr: '0.25rem',
+                  width: '3rem',
                 },
-                "& .MuiSelect-select:focus": {
+                '& .MuiSelect-select:focus': {
                   backgroundColor: neutralLight,
                 },
               }}
@@ -153,31 +162,31 @@ const Navbar = () => {
             {/* the button to swap between light and dark modes using redux*/}
             <IconButton
               onClick={() => dispatch(setMode())}
-              sx={{ fontSize: "25px" }}
+              sx={{ fontSize: '25px' }}
             >
-              {theme.palette.mode === "dark" ? (
-                <DarkMode sx={{ fontSize: "25px" }} />
+              {theme.palette.mode === 'dark' ? (
+                <DarkMode sx={{ fontSize: '25px' }} />
               ) : (
-                <LightMode sx={{ color: dark, fontSize: "25px" }} />
+                <LightMode sx={{ color: dark, fontSize: '25px' }} />
               )}
             </IconButton>
             {/* the dropdown on the top right of navbar */}
-            <Message sx={{ fontSize: "25px" }} />
-            <Notifications sx={{ fontSize: "25px" }} />
-            <Help sx={{ fontSize: "25px" }} />
+            <Message sx={{ fontSize: '25px' }} />
+            <Notifications sx={{ fontSize: '25px' }} />
+            <Help sx={{ fontSize: '25px' }} />
             <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}
                 sx={{
                   backgroundColor: neutralLight,
-                  width: "150px",
-                  borderRadius: "0.25rem",
-                  p: "0.25rem 1rem",
-                  "& .MuiSvgIcon-root": {
-                    pr: "0.25rem",
-                    width: "3rem",
+                  width: '150px',
+                  borderRadius: '0.25rem',
+                  p: '0.25rem 1rem',
+                  '& .MuiSvgIcon-root': {
+                    pr: '0.25rem',
+                    width: '3rem',
                   },
-                  "& .MuiSelect-select:focus": {
+                  '& .MuiSelect-select:focus': {
                     backgroundColor: neutralLight,
                   },
                 }}

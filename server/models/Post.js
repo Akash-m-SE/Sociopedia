@@ -1,4 +1,20 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+
+const commentSchema = mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
+  comment: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+});
 
 const postSchema = mongoose.Schema(
   {
@@ -22,14 +38,14 @@ const postSchema = mongoose.Schema(
       type: Map,
       of: Boolean,
     },
-    comments: {
-      type: Array,
-      default: [],
+    comments: [commentSchema],
+    numOfComments: {
+      type: Number,
     },
   },
   { timestamps: true }
 );
 
-const Post = mongoose.model("Post", postSchema);
+const Post = mongoose.model('Post', postSchema);
 
 export default Post;
