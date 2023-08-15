@@ -20,15 +20,9 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const medium = palette.neutral.medium;
 
   // checking whether the user is friends with the person
-  // const isFriend = Boolean(
-  //   Array.isArray(friends)
-  //     ? friends.find((friend) => friend._id === friendId)
-  //     : console.log("i am error from friend.jsx")
-  // );
-
   const isFriend = friends.find((friend) => friend._id === friendId);
 
-  //   method to make an api call to the backend of whether we can have friend or not
+  // method to make an api call to the backend of whether we can have friend or not
   const patchFriend = async () => {
     const response = await fetch(
       `http://localhost:3001/users/${_id}/${friendId}`,

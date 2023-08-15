@@ -1,16 +1,21 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const commentSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User',
+    ref: "User",
   },
   comment: {
     type: String,
     required: true,
   },
   name: {
+    type: String,
+    required: true,
+  },
+  userPicture: {
+    // Add userPicturePath to the comment schema
     type: String,
     required: true,
   },
@@ -46,6 +51,6 @@ const postSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 export default Post;

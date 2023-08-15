@@ -74,12 +74,14 @@ const PostWidget = ({
           userId: loggedInUserId,
           username: firstName,
           comment: comment,
+          userPicture: loggedInPicture, // Include the user's picture path
         }),
       }
     );
     // console.log(response);
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
+    setComment("");
   };
 
   const deletePost = async () => {
@@ -189,7 +191,7 @@ const PostWidget = ({
                       padding: "0.25rem 0rem",
                     }}
                   >
-                    <UserImage image={loggedInPicture} size="30px" />
+                    <UserImage image={comment.userPicture} size="30px" />
                     <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
                       {comment.name}
                     </Typography>

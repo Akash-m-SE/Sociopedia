@@ -33,7 +33,7 @@ export const deletePost = async (req, res) => {
   if (post) {
     await Post.findByIdAndDelete(id);
     const response = await Post.find({});
-    // res.status(200).json(response);
+    res.status(200).json(response);
   } else {
     res.status(404).json({ message: "Post not found" });
   }
@@ -88,9 +88,10 @@ export const likePost = async (req, res) => {
   }
 };
 
+// adding comments
 export const addComment = async (req, res) => {
   const { id } = req.params;
-  const { userId, username, comment } = req.body;
+  const { userId, username, comment, userPicture } = req.body;
   const post = await Post.findById(id);
 
   if (post) {
@@ -98,6 +99,7 @@ export const addComment = async (req, res) => {
       user: userId,
       name: username,
       comment: comment,
+      userPicture: userPicture,
     };
     post.comments.push(commentCreated);
 
