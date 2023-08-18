@@ -37,11 +37,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-<<<<<<< HEAD
       <ToastContainer position="bottom-center" autoClose={3000} />
-=======
-      <ToastContainer position="bottom-center" autoClose={3000}/>
->>>>>>> 1512e58658ef5e456fa0fe446c9e32f9228cb85b
       <PersistGate loading={null} persistor={persistStore(store)}>
         <App />
       </PersistGate>
