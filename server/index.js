@@ -53,10 +53,13 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
-// MONGOOSE SETUP
+app.use("/", function (req, res) {
+  res.send("Hello from the Bakend.");
+});
 app.use(notFound);
 app.use(errorHandler);
 
+// MONGOOSE SETUP
 const PORT = process.env.PORT || 6001;
 mongoose
   .connect(process.env.MONGO_URL, {
